@@ -1,0 +1,3 @@
+Employees: 1
+Capital: 10
+Age: 0
