@@ -20,7 +20,6 @@ class Product:
     def collect_subscriptions(self):
         return self.users * self.subscription_price
 
-
 class Employee:
     def __init__(self, id, salary):
         self.id = id
@@ -45,7 +44,7 @@ class Company:
             self.die()
             return
         self.cash -= total_paychecks
-        print(f'Paid {self.num_employees * self.salary} paycheck{'s' if self.num_employees > 1 else ''} in salaries')
+        print(f'Paid {self.num_employees * self.salary} paycheck{"s" if self.num_employees > 1 else ""} in salaries')
 
     def earn_revenue(self):
         total_revenue = 0
@@ -68,22 +67,22 @@ class Simulation:
         steps = []
         employees = []
         cash = []
-        while company.alive and time_step < self.max_steps:
+        while self.company.alive and time_step < self.max_steps:
 
-            employees.append(company.num_employees)
-            cash.append(company.cash)
+            employees.append(self.company.num_employees)
+            cash.append(self.company.cash)
             steps.append(time_step)
 
-            company.earn_revenue()
-            company.pay_salaries()
-            for product in company.products:
+            self.company.earn_revenue()
+            self.company.pay_salaries()
+            for product in self.company.products:
                 product.user_increase(self.step_size)
 
             time_step += self.step_size
-            company.age += 1
+            self.company.age += 1
         
         dead_alive = ['dead', 'alive']
-        print(f'At the end of {time_step - 1} steps, the company is {dead_alive[company.alive]}')
+        print(f'At the end of {time_step - 1} steps, the company is {dead_alive[self.company.alive]}')
         return steps, employees, cash
 
 # Example Run
