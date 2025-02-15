@@ -16,9 +16,11 @@ def main():
     n_employees, n_capital, max_time = read_config()
     
     # Initialize company and simulation
-    company = Company(n_employees, n_capital)
+    company = Company(starting_employees=1,
+                      starting_capital=10,
+                      salary=1)
     # company = Company(3, 10)
-    simulation = Simulation(company, max_time)
+    simulation = Simulation(company, max_steps=10)
     
     # Run simulation with animation
     age, employees, capital = simulation.run()
