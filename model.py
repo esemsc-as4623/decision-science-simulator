@@ -16,56 +16,57 @@ class Employee:
 
 
 class Company:
-    def __init__(self, starting_employees, starting_capital, salary = 1):
+    def __init__(self, starting_employees, starting_capital, salary = 1, age=0, alive=True):
         self.num_employees = starting_employees
         # self.revenue_per_employee = revenue_per_employee
         self.cash = starting_capital  # Initial cash
         self.salary = salary
+        self.age = age
+        self.alive = alive
 
     def pay_salaries(self):
         total_paychecks = self.num_employees * self.salary
+
+        if total_paychecks > self.cash:
+            self.die()
+            return
         self.cash -= total_paychecks
-        # print(f"Step {self.time_step}: Paid ${total_salaries} in salaries")
+        print(f'Paid {self.num_employees * self.salary} paycheck{'s' if self.num_employees > 1 else ''} in salaries')
 
-    def earn_revenue(self):
-        revenue = len(self.employees) * self.revenue_per_employee
-        self.cash += revenue
-        print(f"Step {self.time_step}: Earned ${revenue} in revenue")
+    def die(self):
+        self.alive = False
+    # def earn_revenue(self):
 
-    def hire_employee(self, salary):
-        new_employee = Employee(len(self.employees), salary)
-        self.employees.append(new_employee)
-        print(f"Step {self.time_step}: Hired Employee {new_employee.id}")
 
-    def fire_employee(self):
-        if self.employees:
-            fired_employee = self.employees.pop()
-            print(f"Step {self.time_step}: Fired Employee {fired_employee.id}")
+    # def hire_employee(self, salary):
 
-    def simulate_step(self):
-        self.time_step += 1
-        self.earn_revenue()
-        self.pay_salaries()
 
-        # Example decision logic: Hire if cash is high, fire if cash is low
-        if self.cash > 200000:
-            self.hire_employee(5000)
-        elif self.cash < 50000 and self.employees:
-            self.fire_employee()
-
-        print(f"Step {self.time_step}: Cash Balance: ${self.cash}")
+    # def fire_employee(self):
 
 class Simulation:
-    def __init__(self, company, steps):
+    def __init__(self, company, max_steps=50):
         self.company = company
-        self.steps = steps
+        self.max_steps = max_steps
 
     def run(self):
-        for _ in range(self.steps):
-            self.company.simulate_step()
-            print("="*30)
+        time_step=0
+        steps = []
+        employees = []
+        cash = []
+        while company.alive and time_step < self.max_steps:
+            employees.append(company.num_employees)
+            cash.append(company.cash)
+            steps.append(time_step)
+            company.pay_salaries()
+            time_step += 1
+            company.age += 1
+        
+        dead_alive = ['dead', 'alive']
+        print(f'At the end of {time_step - 1} steps, the company is {dead_alive[company.alive]}')
+        return steps, employees, cash
 
 # Example Run
-company = Company(starting_employees=10, base_salary=5000, revenue_per_employee=7000)
-sim = Simulation(company, steps=10)
-sim.run()
+company = Company(starting_employees=2, starting_capital=10)
+sim = Simulation(company, max_steps=50)
+a, b, c = sim.run()
+print(c)
