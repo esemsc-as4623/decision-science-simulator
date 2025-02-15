@@ -9,13 +9,16 @@ import random
 #         self.id = id
 #         self.salary = salary
 
+def sigmoid(x):
+    return 100 / (1 + np.exp(-x+10))
+
 class Product:
     def __init__(self, users, subscription_price=1):
         self.users = users
         self.subscription_price = subscription_price
 
-    def user_increase(self, delta_t):
-        self.users += 1 * delta_t # linear for now
+    def user_increase(self, delta_t, lbda):
+        self.users += delta_t * lbda  # linear for now
     
     def collect_subscriptions(self):
         return self.users * self.subscription_price
@@ -75,8 +78,11 @@ class Simulation:
 
             self.company.earn_revenue()
             self.company.pay_salaries()
+
+            increase_coeff = int(sigmoid(self.company.num_employees))
+
             for product in self.company.products:
-                product.user_increase(self.step_size)
+                product.user_increase(self.step_size, increase_coeff)
 
             time_step += self.step_size
             self.company.age += 1
@@ -86,7 +92,7 @@ class Simulation:
         return steps, employees, cash
 
 # Example Run
-company = Company(starting_employees=3, starting_capital=5000)
+company = Company(starting_employees=10, starting_capital=50000)
 sim = Simulation(company, max_steps=50)
 a, b, c = sim.run()
 print(c)
