@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_grid(num_colored, n_employees, age, grid_size=(5, 5), seed=42):
+def plot_grid(num_colored, text="", grid_size=(5, 5), seed=42):
     np.random.seed(seed)
 
     # Create figure with custom size and two subplots
@@ -33,9 +33,20 @@ def plot_grid(num_colored, n_employees, age, grid_size=(5, 5), seed=42):
     grid_ax.set_title('Remaining Capital')
 
     # Add text in the right subplot
-    text_ax.text(0.1, 0.6, f't = {age}\ncurrent employees = {n_employees}', 
+    text_ax.text(0.1, 0.6, text,
                  fontsize=12, verticalalignment='center')
     text_ax.axis('off')
 
     plt.show()
 
+def plot_animation(capital, employees, steps):
+    assert len(capital) == len(employees) == len(steps), "All inputs must have the same length"
+
+    try:
+        plt.ion()  # Enable interactive mode
+        for i in range(len(capital)):
+            plot_grid(capital[i], f"t = {steps[i]}\nCurrent employees = {employees[i]}")
+            plt.pause(0.5)
+            plt.clf()  # Clear the plot for the next iteration
+    except Exception as e:
+        print(e)
