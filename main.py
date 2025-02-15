@@ -1,5 +1,7 @@
 from model import Company, Simulation
 from animator import plot_grid
+import matplotlib.pyplot as plt
+import time
 
 def read_config():
     with open("config.txt", "r") as f:
@@ -14,8 +16,23 @@ def main():
     n_employees, n_capital, max_time = read_config()
     
     # Initialize company and simulation
-    company = Company(n_employees, n_capital)
-    plot_grid(company)
+    # company = Company(n_employees, n_capital)
+    company = Company(3, 10)
+    simulation = Simulation(company, max_time)
+    
+    # Set up interactive plotting
+    plt.ion()
+    
+    # Run simulation with animation
+    for _ in range(max_time):
+        age, employees, capital = simulation.run()
+        print(age, employees, capital)
+        plot_grid(capital, employees, age)
+        time.sleep(0.5)  # Add delay between frames
+        
+    # Keep the final plot visible
+    plt.ioff()
+    plt.show()
 
 if __name__ == "__main__":
     main()
