@@ -76,6 +76,8 @@ class Simulation:
 
             company.earn_revenue()
             company.pay_salaries()
+            for product in company.products:
+                product.user_increase(self.step_size)
 
             time_step += self.step_size
             company.age += 1
@@ -85,7 +87,7 @@ class Simulation:
         return steps, employees, cash
 
 # Example Run
-company = Company(starting_employees=3, starting_capital=10)
+company = Company(starting_employees=3, starting_capital=5000)
 sim = Simulation(company, max_steps=50)
 a, b, c = sim.run()
 print(c)
