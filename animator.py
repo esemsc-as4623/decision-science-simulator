@@ -38,7 +38,7 @@ def plot_grid(num_colored, text="", grid_size=(10,10), seed=42):
     
     # Add text in the right subplot with adjusted position
     text_ax.text(0.05, 0.6, text, 
-                 fontsize=12, 
+                 fontsize=16, 
                  verticalalignment='center')
     text_ax.axis('off')
 
