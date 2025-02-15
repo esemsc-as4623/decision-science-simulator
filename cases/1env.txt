@@ -1,5 +1,5 @@
 Employees: 1
 Capital: 10
 Salary: 1
-P(sustainability): 0
+P(sustainability): 1
 Max Timesteps: 10

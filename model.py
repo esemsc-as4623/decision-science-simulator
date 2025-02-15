@@ -1,16 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import time
-import random
-
-# class Employee:
-#     def __init__(self, id, salary):
-#         self.id = id
-#         self.salary = salary
 
 def sigmoid(x):
-    return 1000 / (1 + np.exp(-x+6))
+    return 250 / (1 + np.exp(-x+6))
 
 def exponential(x):
     return np.exp(x)
@@ -45,7 +36,7 @@ class Employee:
         self.salary = salary
 
 class Company:
-    def __init__(self, starting_employees, starting_capital, salary = 500, age=0,
+    def __init__(self, starting_employees, starting_capital, salary, age=0,
                  alive=True, users=0, subscription_price= 1):
         self.num_employees = starting_employees
         # self.revenue_per_employee = revenue_per_employee
@@ -78,7 +69,7 @@ class Company:
         print(f'Earned {total_revenue} in revenue')
 
     def invest(self, delta_t=1):
-        self.cash -= int(self.inaction.cost)
+        self.cash -= max(int(self.inaction.cost),0)
         self.inaction.cost_decrease(delta_t)
 
     def die(self):
@@ -131,25 +122,21 @@ class Simulation:
         dead_alive = ['dead', 'alive']
         print(f'At the end of {time_step - 1} steps, the company is {dead_alive[self.company.alive]}')
         return steps, employees, cash
-    
-    def runs(self, probs_list):
 
-        return lifetimes
+# # Example Run
+# company = Company(starting_employees=1, starting_capital=10000)
+# sim = Simulation(company, max_steps=50)
+# a, b, c = sim.run()
+# print(c)
 
-# Example Run
-company = Company(starting_employees=1, starting_capital=10000)
-sim = Simulation(company, max_steps=50)
-a, b, c = sim.run()
-print(c)
+# # probs=np.linspace(0, 1, 3)
 
-probs=np.linspace(0, 1, 3)
+# # lifetimes = []
 
-lifetimes = []
+# # for prob in probs:
+# #     company = Company(starting_employees=1, starting_capital=10000)
+# #     sim = Simulation(company, max_steps=50, probs_sustainability=prob)
+# #     steps, _, _ = sim.run()
+# #     lifetimes.append(len(steps))
 
-for prob in probs:
-    company = Company(starting_employees=1, starting_capital=10000)
-    sim = Simulation(company, max_steps=50, probs_sustainability=prob)
-    steps, _, _ = sim.run()
-    lifetimes.append(len(steps))
-
-print(lifetimes)
+# # print(lifetimes)
