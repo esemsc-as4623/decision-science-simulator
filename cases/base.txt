@@ -1,0 +1,3 @@
+Employees: 3
+Capital: 5000
+Max Timesteps: 50
