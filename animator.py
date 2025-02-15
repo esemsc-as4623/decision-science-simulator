@@ -1,17 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import time
 
-def read_config():
-    with open("config.txt", "r") as f:
-        lines = f.readlines()
-        n_employees = int(lines[0].split(":")[1].strip())
-        n_capital = int(lines[1].split(":")[1].strip())
-        age = int(lines[2].split(":")[1].strip())
-
-    return n_employees, n_capital, age
-
-def plot_grid(num_colored, n_employees, age, grid_size=(5, 5), seed=42):
+def plot_grid(company, grid_size=(5, 5), seed=42):
+    num_colored, n_employees, age = company.cash, company.num_employees, company.age
     np.random.seed(seed)
 
     # Create figure with custom size and two subplots
@@ -43,7 +34,3 @@ def plot_grid(num_colored, n_employees, age, grid_size=(5, 5), seed=42):
     text_ax.axis('off')  # Hide axes for text subplot
 
     plt.show()
-
-if __name__ == "__main__":
-    n_employees, n_capital, age = read_config()
-    plot_grid(n_capital, n_employees, age)
