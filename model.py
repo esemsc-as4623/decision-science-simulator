@@ -1,7 +1,7 @@
 import numpy as np
 
 def sigmoid(x):
-    return 250 / (1 + np.exp(-x+6))
+    return 1 / (1 + np.exp(-x+6))
 
 def exponential(x):
     return np.exp(x)
