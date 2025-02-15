@@ -34,11 +34,11 @@ def plot_grid(num_colored, text="", grid_size=(10,10), seed=42):
     grid_ax.set_xticklabels([])
     grid_ax.set_yticklabels([])
     grid_ax.set_aspect('equal', adjustable='box')
-    grid_ax.set_title('Remaining Capital')
+    grid_ax.set_title('Remaining Capital', fontsize=25)
     
     # Add text in the right subplot with adjusted position
-    text_ax.text(0.05, 0.6, text, 
-                 fontsize=16, 
+    text_ax.text(-0.5, 0.6, text, 
+                 fontsize=18, 
                  verticalalignment='center')
     text_ax.axis('off')
 
